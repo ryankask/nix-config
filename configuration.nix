@@ -23,6 +23,8 @@
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
 
+  security.sudo.wheelNeedsPassword = false;
+
   # QEMU
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
