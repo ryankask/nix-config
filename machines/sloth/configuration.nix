@@ -10,6 +10,12 @@
 
   nix = {
     package = pkgs.nixFlakes;
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 1w";
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -18,7 +24,10 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 10;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
@@ -48,6 +57,7 @@
     xkb = {
       layout = "gb";
       variant = "colemak";
+      options = "lv3:ralt_alt,terminate:ctrl_alt_bksp";
     };
     desktopManager = {
       xterm.enable = false;
@@ -66,23 +76,13 @@
     createHome = true;
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    packages = with pkgs; [ ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH9qkCB4kpyspseIOpk0BG/6Ojk3KMQr3qOOUPFxlY2Q"
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    bottom
-    curl
-    emacs
-    git
-    iosevka
-    kitty
-    tree
-    wget
-  ];
+  environment.systemPackages = with pkgs; [ ];
 
   services.openssh = {
     enable = true;
@@ -95,10 +95,12 @@
     };
   };
 
-  programs.zsh = {
-    enable = true;
-    syntaxHighlighting.enable = true;
-  };
+  programs.zsh.enable = true;
+
+  fonts.packages = with pkgs; [
+    iosevka
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+  ];
 
   system.stateVersion = "24.05";
 }
