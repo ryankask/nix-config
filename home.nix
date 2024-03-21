@@ -32,6 +32,12 @@ in
     zsh
   ];
   home.file = {
+    ".xprofile".text = ''
+      # Ensure that ~/.zprofile is read
+      [ -z "$ZSH_NAME" ] && exec $SHELL --login $0 "$@"
+      [[ -o login ]] || exec $SHELL --login $0 "$@"
+      emulate -R sh
+    '';
     ".zlogin".source = ./dotfiles/zsh/zlogin;
     ".zprofile".text = ''
       export EDITOR='emacs'
