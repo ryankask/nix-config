@@ -28,6 +28,7 @@ in
     rclone
     ripgrep
     xh
+    xsv
     zoxide
     zsh
   ];
