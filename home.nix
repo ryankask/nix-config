@@ -18,8 +18,10 @@ in
   home.username = user;
   home.homeDirectory = homeDir;
   home.packages = with pkgs; [
+    aspell
     bat
     emacs
+    enchant
     fd
     fzf
     git
