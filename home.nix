@@ -78,4 +78,9 @@ in
       size = 10;
     };
   };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = false;
+  };
 }
