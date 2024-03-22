@@ -54,22 +54,26 @@
 
   services.xserver = {
     enable = true;
+    autorun = true;
+    libinput.enable = true;
+
     xkb = {
       layout = "gb";
       variant = "colemak";
       options = "lv3:ralt_alt,terminate:ctrl_alt_bksp";
     };
+
     desktopManager = {
       xterm.enable = false;
     };
+
     displayManager = {
       defaultSession = "none+i3";
     };
+
     windowManager.i3 = {
       enable = true;
     };
-    autorun = true;
-    libinput.enable = true;
   };
 
   users.users.ryan = {
