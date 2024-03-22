@@ -21,7 +21,7 @@
         sloth = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
-            ./machines/sloth/configuration.nix
+            ./hosts/sloth/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
