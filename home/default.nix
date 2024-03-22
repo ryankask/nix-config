@@ -46,7 +46,7 @@ in
       export EDITOR='emacs'
       export VISUAL='emacs'
       export PAGER='less'
-      export DOTFILES="$HOME/nix-config/dotfiles"
+      export DOTFILES="$HOME/nix-config/home/dotfiles"
       typeset -gU cdpath fpath mailpath path
       export LESS='-F -g -i -M -R -S -w -X -z-4'
     '';
@@ -67,10 +67,7 @@ in
   xsession.enable = true;
   xsession.windowManager.i3 = {
     enable = true;
-    config = {
-      modifier = "Mod1";
-      terminal = "kitty";
-    };
+    config = import ./i3-config.nix config.xsession.windowManager.i3.config;
   };
 
   programs.kitty = {
